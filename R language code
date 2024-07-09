@@ -1,0 +1,63 @@
+R version 4.4.1 (2024-06-14) -- "Race for Your Life"
+ Copyright (C) 2024 The R Foundation for Statistical Computing
+ Platform: aarch64-apple-darwin20
+ R is free software and comes with ABSOLUTELY NO WARRANTY.
+ You are welcome to redistribute it under certain conditions.
+ Type 'license()' or 'licence()' for distribution details.
+  Natural language support but running in an English locale
+ R is a collaborative project with many contributors.
+ Type 'contributors()' for more information and
+ 'citation()' on how to cite R or R packages in publications.
+ Type 'demo()' for some demos, 'help()' for on-line help, or
+ 'help.start()' for an HTML browser interface to help.
+ Type 'q()' to quit R.
+
+# Load necessary libraries
+library(ggplot2)
+
+# Generate synthetic data
+set.seed(123)
+data <- data.frame(
+  X = rnorm(100, mean = 50, sd = 10),  # Normal distribution for X
+  Y = rnorm(100, mean = 30, sd = 5),   # Normal distribution for Y
+  Category = sample(letters[1:3], 100, replace = TRUE)  # Categorical data
+)
+
+# Scatter plot
+ggplot(data, aes(x = X, y = Y)) +
+  geom_point() +
+  labs(title = "Scatter Plot", x = "X-axis", y = "Y-axis")
+
+
+# Histogram
+ggplot(data, aes(x = X)) +
+  geom_histogram(binwidth = 2, fill = "blue", color = "black") +
+  labs(title = "Histogram", x = "X-axis", y = "Count")
+
+# Boxplot
+ggplot(data, aes(x = Category, y = Y, fill = Category)) +
+  geom_boxplot() +
+  labs(title = "Boxplot", x = "Category", y = "Y-axis")
+
+# Line plot
+ggplot(data, aes(x = 1:nrow(data), y = X)) +
+  geom_line(color = "red") +
+  labs(title = "Line Plot", x = "Index", y = "X-axis")
+
+# Density plot
+ggplot(data, aes(x = X)) +
+  geom_density(fill = "green") +
+  labs(title = "Density Plot", x = "X-axis", y = "Density")
+
+# Bar chart
+ggplot(data, aes(x = Category)) +
+  geom_bar(fill = "orange") +
+  labs(title = "Bar Chart", x = "Category", y = "Count")
+
+# Pie chart
+pie_data <- table(data$Category)
+pie_labels <- paste(names(pie_data), "\n", pie_data, sep = "")
+pie(pie_data, labels = pie_labels, main = "Pie Chart", col = rainbow(length(pie_data)))
+
+# Dot chart
+dotchart(data$X, labels = rownames(data), main = "Dot Chart", xlab = "X-axis")
